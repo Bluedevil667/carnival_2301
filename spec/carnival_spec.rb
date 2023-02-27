@@ -45,4 +45,22 @@ RSpec.describe Carnival do
     ride3.board_rider(visitor3)
     expect(carnival.most_popular_ride).to eq("Carousel")
   end
+
+  it 'can return most profitable ride' do
+    carnival = Carnival.new(100)
+    visitor1.add_preference(:gentle)
+    visitor2.add_preference(:gentle)
+    visitor2.add_preference(:thrilling)
+    visitor3.add_preference(:thrilling)
+    carnival.add_ride(ride1)
+    carnival.add_ride(ride2)
+    carnival.add_ride(ride3)
+    ride1.board_rider(visitor1)
+    ride1.board_rider(visitor2)
+    ride1.board_rider(visitor1)
+    ride3.board_rider(visitor3)
+    ride3.board_rider(visitor3)
+    ride3.board_rider(visitor3)
+    expect(carnival.most_profitable_ride).to eq("Roller Coaster")
+  end
 end
