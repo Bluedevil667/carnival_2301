@@ -14,4 +14,28 @@ RSpec.describe Ride do
     expect(ride1.excitement).to eq(:gentle)
     expect(ride1.total_revenue).to eq(0)
   end
+
+  it 'can have a rider on the ride' do
+    ride1 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
+    visitor1 = Visitor.new('Bruce', 54, 10)
+    visitor2 = Visitor.new('Tucker', 36, 5)
+    visitor1.add_preference(:gentle)
+    visitor2.add_preference(:gentle)
+    expect(ride1.board_rider(visitor1)).to eq([visitor1])
+    expect(ride1.board_rider(visitor2)).to eq([visitor1, visitor2])
+  end
+
+  it 'can take away visitor spending_money, and add it to the total revenue of the ride' do
+    ride1 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
+    visitor1 = Visitor.new('Bruce', 54, 10)
+    visitor2 = Visitor.new('Tucker', 36, 5)
+    visitor1.add_preference(:gentle)
+    visitor2.add_preference(:gentle)
+    ride1.board_rider(visitor1)
+    ride1.board_rider(visitor2)
+    ride1.board_rider(visitor1)
+    expect(ride1.total_revenue).to eq(3)
+    expect(visitor1.spending_money).to eq(8)
+    expect(visitor2.spending_money).to eq(4)
+  end
 end

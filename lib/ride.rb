@@ -10,5 +10,15 @@ class Ride
     @admission_fee = attributes[:admission_fee]
     @excitement = attributes[:excitement]
     @total_revenue = 0
+    @rider_log = []
+  end
+
+  def board_rider(rider)
+    if rider.preferences.include?(excitement)
+      @total_revenue += @admission_fee
+      # require 'pry'; binding.pry
+      rider.spending_money = rider.spending_money - @admission_fee
+      @rider_log << rider
+    end
   end
 end
