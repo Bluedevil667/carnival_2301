@@ -3,7 +3,8 @@ class Ride
               :min_height,
               :admission_fee,
               :excitement,
-              :total_revenue
+              :total_revenue,
+              :rider_log
   def initialize(attributes)
     @name = attributes[:name]
     @min_height = attributes[:min_height]
@@ -14,7 +15,7 @@ class Ride
   end
 
   def board_rider(rider)
-    if rider.preferences.include?(excitement)
+    if rider.preferences.first == @excitement
       @total_revenue += @admission_fee
       # require 'pry'; binding.pry
       rider.spending_money = rider.spending_money - @admission_fee
