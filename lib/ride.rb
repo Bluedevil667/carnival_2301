@@ -17,7 +17,6 @@ class Ride
   def board_rider(rider)
     if rider.preferences.first == @excitement
       @total_revenue += @admission_fee
-      # require 'pry'; binding.pry
       rider.spending_money = rider.spending_money - @admission_fee
       @rider_log << rider
     end
