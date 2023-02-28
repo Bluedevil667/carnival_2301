@@ -19,4 +19,12 @@ class Carnival
     most_prof_ride = @rides.max_by(&:total_revenue)
     most_prof_ride.name
   end  
+
+  def total_revenue
+    revenue = []
+    @rides.each do |ride|
+      revenue << ride.total_revenue
+    end
+    revenue.sum
+  end
 end
